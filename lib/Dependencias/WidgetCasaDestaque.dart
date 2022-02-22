@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-import 'package:torneiohp/Dependencias/RecuperaG.dart';
-
-import 'ConstrutorCasas.dart';
 import 'ControleLista.dart';
+import 'ListaCadasDestaque.dart';
 
 class WidgetCasaDestaque extends StatefulWidget {
   const WidgetCasaDestaque({Key? key}) : super(key: key);
@@ -18,55 +15,28 @@ class WidgetCasaDestaque extends StatefulWidget {
 class _WidgetCasaDestaqueState extends State<WidgetCasaDestaque> {
   @override
   Widget build(BuildContext context) {
+    final _controleListaCasa = Provider.of<ControleLista>(context);
 
-    final _recuperaLista = Provider.of<ControleLista>(context);
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Observer(
-        builder: (_)=>
-            FutureBuilder<List<ConstrutorCasas>>(
-              future: _recuperaLista.ListaCasas(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                    return Center(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Carregando Aulas',
-
-                          ),
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                    );
-                    break;
-                  case ConnectionState.active:
-                  case ConnectionState.done:
-                    return ListView.builder(
-
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, indice) {
-                        List<ConstrutorCasas>? listaCasas = snapshot.data;
-                        ConstrutorCasas casas = listaCasas![indice];
-
-                        return Container(
-                            width: 400,
-                            height: 400,
-                            child: RiveAnimation.asset(
-                              casas.caminhoAnimacao,
-                              animations: ['pulsando'],
-
-                            ),
-
-                        );
-                      },
-                    );
-                }
-              },
+    Future.delayed(Duration(seconds: 3), () {
+      _controleListaCasa.carregando = true;
+      print('trocou  $_controleListaCasa.carregando');
+    });
+    return Observer(
+      builder: (_) => Container(
+          child: _controleListaCasa.carregando == false
+              ? Container(
+            height: 200,
+            width: 200,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: RiveAnimation.asset(
+                'assets/poison_loader.riv',
+                fit: BoxFit.cover,
+                animations: ['idle'],
+              ),
             ),
-      ),
+          )
+              : ListaCasaDestaque()),
     );
   }
 }

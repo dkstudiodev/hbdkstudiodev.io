@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import 'package:torneiohp/Dependencias/ConstrutorCasas.dart';
 import 'package:torneiohp/Dependencias/RecuperaH.dart';
 
@@ -37,7 +38,16 @@ class _HuffepuffState extends State<Huffepuff> {
     return Observer(
       builder: (_) => Container(
         child: _recuperaPontos.carregando == false
-            ? CircularProgressIndicator()
+            ? Container(
+          height: 300,
+          width: 300,
+          child: RiveAnimation.asset(
+            'assets/poison_loader.riv',
+            fit: BoxFit.cover,
+            animations: ['idle'],
+          ),
+        )
+
             : WidgetCasa(
             caminhoAnimacao: huffepuff.caminhoAnimacao,
             animacao: 'parado',

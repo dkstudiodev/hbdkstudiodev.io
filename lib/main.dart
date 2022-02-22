@@ -49,7 +49,8 @@ Future<void> main() async {
         create: (_) => ControleLista(),
       )
     ],
-    child:  MaterialApp(
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'HARRYP',
       ),
@@ -67,58 +68,94 @@ class PaginaRanking extends StatelessWidget {
     var altura = MediaQuery.of(context).size.height;
 
     FirebaseFirestore db = FirebaseFirestore.instance;
-    db.collection("casa").snapshots().listen(
-            ( snapshot ){
+    db.collection("casa").snapshots().listen((snapshot) {
+      for (DocumentSnapshot item in snapshot.docs) {
+        dynamic dados = item.data();
+        print("Dados exibicao: " + dados["nome"] + " - " + dados["pontos"]);
+      }
+    });
 
-          for( DocumentSnapshot item in snapshot.docs ){
-            dynamic dados = item.data();
-            print("Dados exibicao: " + dados["nome"] + " - " + dados["pontos"] );
-          }
-
-        }
-    );
-
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            color: Colors.transparent,
-            alignment: Alignment.center,
-            height: altura / 2,
-            width: largura,
-            child: Center(child: WidgetCasaDestaque()),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              children: [
-                Expanded(
-                    child: Container(
-                  color: Colors.red,
-                  child: Gryffindor(),
-                )),
-                Expanded(
-                    child: Container(
-                  color: Colors.yellow,
-                  child: Huffepuff(),
-                )),
-                Expanded(
-                    child: Container(
-                  color: Colors.green,
-                  child: Ravenclaw(),
-                )),
-                Expanded(
-                    child: Container(
-                  color: Colors.blue,
-                  child: Slytherin(),
-                )),
-              ],
+    return Stack(
+      children: [
+        Container(
+          height: altura,
+          width: largura,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
             ),
-          )
-        ],
-      ),
+          ),
+          // height: altura,
+          // width: largura,
+        ),
+        Scaffold(
+          backgroundColor: Colors.black54,
+          body: Column(
+            children: [
+              Center(
+                child: ClipOval(
+                  child: Container(
+                    color: Colors.white.withAlpha(80),
+                    child: IconButton(
+                      highlightColor: Color(0xff51cc9c),
+                      color: Color(0xff51cc9c),
+                      iconSize: 70,
+                      icon: Image.asset(
+                        'assets/images/logo_dk.png',
+                        scale: 0.5,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Container(
+                  child: Text(
+                    'Primerio Lugar',
+                    style: TextStyle(fontSize: 40, color: Color(0xff51cc9c)),
+                  ),
+                ),
+              ),
+              Container(
+                height: 300,
+                width: 300,
+                child: WidgetCasaDestaque(),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    height: 300,
+                    // color: Colors.red,
+                    child: Gryffindor(),
+                  )),
+                  Expanded(
+                      child: Container(
+                    height: 300,
+                    // color: Colors.yellow,
+                    child: Huffepuff(),
+                  )),
+                  Expanded(
+                      child: Container(
+                    height: 300,
+                    // color: Colors.blue,
+                    child: Ravenclaw(),
+                  )),
+                  Expanded(
+                      child: Container(
+                    height: 300,
+                    // color: Colors.green,
+                    child: Slytherin(),
+                  )),
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

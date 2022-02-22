@@ -72,12 +72,15 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/poison_loader.riv
     - assets/gryffindor.riv
     - assets/gryffindor1.riv
     - assets/huffepuff.riv
     - assets/ravenclaw.riv
     - assets/slytherin.riv
     - assets/fonts/HARRYP.ttf
+    - assets/images/logo_dk.png
+    - assets/images/background.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

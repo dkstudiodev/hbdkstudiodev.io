@@ -21,8 +21,8 @@ class WidgetCasa extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 250,
-          width: 250,
+          height: 200,
+          width: 200,
           child: RiveAnimation.asset(
             caminhoAnimacao!,
             animations: [animacao],
@@ -34,6 +34,7 @@ class WidgetCasa extends StatelessWidget {
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),),
         )
       ],

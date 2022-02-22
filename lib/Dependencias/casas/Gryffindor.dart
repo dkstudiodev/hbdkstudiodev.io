@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import 'package:torneiohp/Dependencias/ConstrutorCasas.dart';
 import 'package:torneiohp/Dependencias/RecuperaG.dart';
 import 'package:torneiohp/Dependencias/RecuperaH.dart';
@@ -23,7 +24,6 @@ class _GryffindorState extends State<Gryffindor> {
       nome: 'gryffindor',
       caminhoAnimacao: 'assets/gryffindor.riv',
       pontos: _recuperaPontos.recuperaPontos('gryffindor'),
-
     );
     var pontos = _recuperaPontos.pontos;
 
@@ -32,14 +32,21 @@ class _GryffindorState extends State<Gryffindor> {
 
     Future.delayed(Duration(seconds: 3), () {
       _recuperaPontos.carregando = true;
-      print(_recuperaPontos.carregando);
-      print(_recuperaPontos.pontos);
+
     });
 
     return Observer(
       builder: (_) => Container(
         child: _recuperaPontos.carregando == false
-            ? CircularProgressIndicator()
+            ? Container(
+          height: 300,
+              width: 300,
+              child: RiveAnimation.asset(
+                  'assets/poison_loader.riv',
+                  fit: BoxFit.cover,
+                  animations: ['idle'],
+                ),
+            )
             : WidgetCasa(
                 caminhoAnimacao: gryffindor.caminhoAnimacao,
                 animacao: 'parado',
@@ -48,4 +55,3 @@ class _GryffindorState extends State<Gryffindor> {
     );
   }
 }
-
