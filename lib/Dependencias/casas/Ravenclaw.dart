@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import 'package:torneiohp/Dependencias/ConstrutorCasas.dart';
 import 'package:torneiohp/Dependencias/RecuperaH.dart';
 
@@ -39,7 +40,15 @@ class _RavenclawState extends State<Ravenclaw> {
     return Observer(
       builder: (_) => Container(
         child: _recuperaPontos.carregando == false
-            ? CircularProgressIndicator()
+            ? Container(
+          height: 600,
+          width: 600,
+          child: RiveAnimation.asset(
+            'assets/poison_loader.riv',
+            fit: BoxFit.cover,
+            animations: ['idle'],
+          ),
+        )
             : WidgetCasa(
             caminhoAnimacao: ravenclaw.caminhoAnimacao,
             animacao: 'parado',

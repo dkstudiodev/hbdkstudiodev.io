@@ -1,43 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'ConstrutorCasas.dart';
+
 part 'ControleLista.g.dart';
 
 class ControleLista = _ControleListaBase with _$ControleLista;
 
 abstract class _ControleListaBase with Store {
+  @observable
+  bool carregando = false;
 
-
+  @observable
+  dynamic primeiraCasa;
 
   @action
-  Future<List<ConstrutorCasas>> ListaCasas() async {
+  Future<ConstrutorCasas> ListaCasas() async {
     FirebaseFirestore db = FirebaseFirestore.instance;
+    db.collection('casas').snapshots().listen((snapshott) {
+      carregando = false;
+      Future.delayed(Duration(seconds: 1), () async {
+        QuerySnapshot querySnapshot = await db
+            .collection('casas')
+            .orderBy('pontos', descending: true)
+            .limit(1)
+            .get();
 
+        for (DocumentSnapshot item in querySnapshot.docs) {
+          dynamic dados = item.data();
 
+          ConstrutorCasas casa = await ConstrutorCasas(
+              pontos: dados['pontos'],
+              nome: dados['nome'],
+              caminhoAnimacao: dados['caminhoAnimacao']);
 
-    //Recupera todos os usuarios
-    QuerySnapshot querySnapshot = await db
-        .collection('casas')
-        .orderBy('pontos', descending: true)
+          primeiraCasa = casa;
+        }
+        carregando = true;
+      });
+    });
 
-        .get();
-
-    // print('query '+ querySnapshot.docs[0].toString());
-
-    List<ConstrutorCasas> listaCasas = [];
-
-    for (DocumentSnapshot item in querySnapshot.docs) {
-      dynamic dados = item.data();
-
-      ConstrutorCasas casa = ConstrutorCasas(
-          pontos: dados['pontos'],
-          nome: dados['nome'],
-          caminhoAnimacao: dados['caminhoAnimacao']);
-
-      listaCasas.add(casa);
-    }
-    return listaCasas;
+    return primeiraCasa;
   }
-
-
 }
