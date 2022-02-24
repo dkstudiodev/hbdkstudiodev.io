@@ -25,10 +25,8 @@ class _GryffindorState extends State<Gryffindor> {
       caminhoAnimacao: 'assets/gryffindor.riv',
       pontos: _recuperaPontos.recuperaPontos('gryffindor'),
     );
-    var pontos = _recuperaPontos.pontos;
 
-    print(pontos);
-    print(gryffindor.pontos);
+
 
     Future.delayed(Duration(seconds: 3), () {
       _recuperaPontos.carregando = true;
@@ -39,8 +37,8 @@ class _GryffindorState extends State<Gryffindor> {
       builder: (_) => Container(
         child: _recuperaPontos.carregando == false
             ? Container(
-          height: 300,
-              width: 300,
+          height: 600,
+              width: 600,
               child: RiveAnimation.asset(
                   'assets/poison_loader.riv',
                   fit: BoxFit.cover,

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'ConstrutorCasas.dart';
+
 part 'ControleLista.g.dart';
 
 class ControleLista = _ControleListaBase with _$ControleLista;
@@ -9,69 +11,36 @@ abstract class _ControleListaBase with Store {
   @observable
   bool carregando = false;
 
+  @observable
+  dynamic primeiraCasa;
+
+
   @action
-  Future<List<ConstrutorCasas>> ListaCasas() async {
+  Future<ConstrutorCasas> ListaCasas() async {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    List<ConstrutorCasas> listaCasas = [];
-
-    //Recupera todos os usuarios
-    db.collection('casas')
-        .snapshots()
-        .listen((snapshot) {
+    db.collection('casas').snapshots().listen((snapshott) {
       carregando = false;
-      print(carregando);
+      Future.delayed(Duration(seconds: 1), () async {
+        QuerySnapshot querySnapshot = await db
+            .collection('casas')
+            .orderBy('pontos', descending: true)
+            .limit(1)
+            .get();
 
-      carregando = true;
-      print(carregando);
+        for (DocumentSnapshot item in querySnapshot.docs) {
+          dynamic dados = item.data();
 
-      // Future.delayed(Duration(seconds: 1), () async {
-      //   print('carregando e igual a $carregando');
-      //
-      //     db.collection('casas').snapshots().listen((snapshot) async {
-      //
-      //       QuerySnapshot querySnapshot = await db
-      //           .collection('casas')
-      //           .orderBy('pontos', descending: true)
-      //           .get();
-      //
-      //       for (DocumentSnapshot item in querySnapshot.docs) {
-      //         dynamic dados = item.data();
-      //
-      //         ConstrutorCasas casa = ConstrutorCasas(
-      //             pontos: dados['pontos'],
-      //             nome: dados['nome'],
-      //             caminhoAnimacao: dados['caminhoAnimacao']);
-      //         carregando = true;
-      //         listaCasas.add(casa);
-      //
-      //     }});
-      // });
+          ConstrutorCasas casa = await ConstrutorCasas(
+              pontos: dados['pontos'],
+              nome: dados['nome'],
+              caminhoAnimacao: dados['caminhoAnimacao']);
 
+          primeiraCasa = casa;
+        }
+        carregando = true;
+      });
     });
 
-    QuerySnapshot querySnapshot = await db
-        .collection('casas')
-        .orderBy('pontos', descending: true)
-        .get();
-
-    for (DocumentSnapshot item in querySnapshot.docs) {
-      dynamic dados = item.data();
-
-      ConstrutorCasas casa = ConstrutorCasas(
-          pontos: dados['pontos'],
-          nome: dados['nome'],
-          caminhoAnimacao: dados['caminhoAnimacao']);
-
-      listaCasas.add(casa);
-
-      db.collection('casas').snapshots().listen((snapshot) {
-
-      });
-
-    }
-    return listaCasas;
+    return primeiraCasa;
   }
-
-
-
 }

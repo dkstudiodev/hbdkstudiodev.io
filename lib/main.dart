@@ -67,11 +67,13 @@ class PaginaRanking extends StatelessWidget {
     var largura = MediaQuery.of(context).size.width;
     var altura = MediaQuery.of(context).size.height;
 
+    final _controleLista = Provider.of<ControleLista>(context);
+    final _controleListaFunction = _controleLista.ListaCasas();
+
     FirebaseFirestore db = FirebaseFirestore.instance;
     db.collection("casa").snapshots().listen((snapshot) {
       for (DocumentSnapshot item in snapshot.docs) {
         dynamic dados = item.data();
-        print("Dados exibicao: " + dados["nome"] + " - " + dados["pontos"]);
       }
     });
 
@@ -89,71 +91,109 @@ class PaginaRanking extends StatelessWidget {
           // height: altura,
           // width: largura,
         ),
-        Scaffold(
-          backgroundColor: Colors.black54,
-          body: Column(
-            children: [
-              Center(
-                child: ClipOval(
-                  child: Container(
-                    color: Colors.white.withAlpha(80),
-                    child: IconButton(
-                      highlightColor: Color(0xff51cc9c),
-                      color: Color(0xff51cc9c),
-                      iconSize: 70,
-                      icon: Image.asset(
-                        'assets/images/logo_dk.png',
-                        scale: 0.5,
+        LayoutBuilder(
+          builder: ( context,constraints) {
+          return Scaffold(
+            backgroundColor: Colors.black54,
+            body: Column(
+              children: [
+                Center(
+                  child: ClipOval(
+                    child: Container(
+                      color: Colors.white.withAlpha(80),
+                      child: IconButton(
+                        highlightColor: Color(0xff51cc9c),
+                        color: Color(0xff51cc9c),
+                        iconSize: 70,
+                        icon: Image.asset(
+                          'assets/images/logo_dk.png',
+                          scale: 0.5,
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Container(
-                  child: Text(
-                    'Primerio Lugar',
-                    style: TextStyle(fontSize: 40, color: Color(0xff51cc9c)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Container(
+                    child: Text(
+                      'Primerio Lugar',
+                      style: TextStyle(fontSize: 40, color: Color(0xff51cc9c)),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                height: 300,
-                width: 300,
-                child: WidgetCasaDestaque(),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                    height: 300,
-                    // color: Colors.red,
-                    child: Gryffindor(),
-                  )),
-                  Expanded(
-                      child: Container(
-                    height: 300,
-                    // color: Colors.yellow,
-                    child: Huffepuff(),
-                  )),
-                  Expanded(
-                      child: Container(
-                    height: 300,
-                    // color: Colors.blue,
-                    child: Ravenclaw(),
-                  )),
-                  Expanded(
-                      child: Container(
-                    height: 300,
-                    // color: Colors.green,
-                    child: Slytherin(),
-                  )),
-                ],
-              )
-            ],
-          ),
+                Container(
+                  height: 300,
+                  width: 300,
+                  child: WidgetCasaDestaque(),
+                ),
+
+                // GridView.count(
+                //     crossAxisCount: 8,
+                // children: [
+                //   Expanded(
+                //       child: Container(
+                //         height: 300,
+                //
+                //         child: Gryffindor(),
+                //       )),
+                //   Expanded(
+                //       child: Container(
+                //         height: 300,
+                //
+                //         child: Huffepuff(),
+                //       )),
+                //   Expanded(
+                //       child: Container(
+                //         height: 300,
+                //
+                //         child: Ravenclaw(),
+                //       )),
+                //   Expanded(
+                //       child: Container(
+                //         height: 300,
+                //
+                //         child: Slytherin(),
+                //       )),
+                //
+                // ],
+                // ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Container(
+                            height: 300,
+                            // color: Colors.red,
+                            child: Gryffindor(),
+                          )),
+                      Expanded(
+                          child: Container(
+                            height: 300,
+                            // color: Colors.yellow,
+                            child: Huffepuff(),
+                          )),
+                      Expanded(
+                          child: Container(
+                            height: 300,
+                            // color: Colors.blue,
+                            child: Ravenclaw(),
+                          )),
+                      Expanded(
+                          child: Container(
+                            height: 300,
+                            // color: Colors.green,
+                            child: Slytherin(),
+                          )),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+
         ),
       ],
     );

@@ -73,6 +73,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/poison_loader.riv
+    - assets/trophyhovering.riv
     - assets/gryffindor.riv
     - assets/gryffindor1.riv
     - assets/huffepuff.riv

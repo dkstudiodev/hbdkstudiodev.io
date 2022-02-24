@@ -16,8 +16,6 @@ abstract class _RecuperaGBase with Store {
   @observable
   bool carregando = false;
 
-  List<ConstrutorCasas> Listacasa2 = [];
-
 
   @action
   recuperaPontos(String nomeCasa) async {

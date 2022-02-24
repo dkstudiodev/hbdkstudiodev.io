@@ -6,6 +6,9 @@ import 'ControleLista.dart';
 import 'ListaCadasDestaque.dart';
 
 class WidgetCasaDestaque extends StatefulWidget {
+
+
+
   const WidgetCasaDestaque({Key? key}) : super(key: key);
 
   @override
@@ -16,27 +19,24 @@ class _WidgetCasaDestaqueState extends State<WidgetCasaDestaque> {
   @override
   Widget build(BuildContext context) {
     final _controleListaCasa = Provider.of<ControleLista>(context);
+    final functionControleLista = _controleListaCasa.ListaCasas();
 
-    Future.delayed(Duration(seconds: 3), () {
-      _controleListaCasa.carregando = true;
-      print('trocou  $_controleListaCasa.carregando');
-    });
     return Observer(
       builder: (_) => Container(
           child: _controleListaCasa.carregando == false
               ? Container(
-            height: 200,
-            width: 200,
+            height: 300,
+            width: 300,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: RiveAnimation.asset(
-                'assets/poison_loader.riv',
+                'assets/trophyhovering.riv',
                 fit: BoxFit.cover,
-                animations: ['idle'],
+                animations: ['pesquisando'],
               ),
             ),
           )
-              : ListaCasaDestaque()),
+              : ListaCasaDestaque(functionControleLista: functionControleLista,)),
     );
   }
 }
