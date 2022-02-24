@@ -128,37 +128,6 @@ class PaginaRanking extends StatelessWidget {
                   width: 300,
                   child: WidgetCasaDestaque(),
                 ),
-
-                // GridView.count(
-                //     crossAxisCount: 8,
-                // children: [
-                //   Expanded(
-                //       child: Container(
-                //         height: 300,
-                //
-                //         child: Gryffindor(),
-                //       )),
-                //   Expanded(
-                //       child: Container(
-                //         height: 300,
-                //
-                //         child: Huffepuff(),
-                //       )),
-                //   Expanded(
-                //       child: Container(
-                //         height: 300,
-                //
-                //         child: Ravenclaw(),
-                //       )),
-                //   Expanded(
-                //       child: Container(
-                //         height: 300,
-                //
-                //         child: Slytherin(),
-                //       )),
-                //
-                // ],
-                // ),
                 Expanded(
                   child: Row(
                     children: [
