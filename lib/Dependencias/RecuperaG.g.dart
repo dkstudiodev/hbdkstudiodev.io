@@ -39,6 +39,21 @@ mixin _$RecuperaG on _RecuperaGBase, Store {
     });
   }
 
+  final _$mudouAtom = Atom(name: '_RecuperaGBase.mudou');
+
+  @override
+  bool get mudou {
+    _$mudouAtom.reportRead();
+    return super.mudou;
+  }
+
+  @override
+  set mudou(bool value) {
+    _$mudouAtom.reportWrite(value, super.mudou, () {
+      super.mudou = value;
+    });
+  }
+
   final _$recuperaPontosAsyncAction =
       AsyncAction('_RecuperaGBase.recuperaPontos');
 
@@ -52,7 +67,8 @@ mixin _$RecuperaG on _RecuperaGBase, Store {
   String toString() {
     return '''
 pontos: ${pontos},
-carregando: ${carregando}
+carregando: ${carregando},
+mudou: ${mudou}
     ''';
   }
 }

@@ -26,15 +26,15 @@ class _RavenclawState extends State<Ravenclaw> {
       caminhoAnimacao: 'assets/ravenclaw.riv',
       pontos: _recuperaPontos.recuperaPontos('ravenclaw'),
     );
-    var pontos = _recuperaPontos.pontos;
-
-    print(pontos);
-    print(ravenclaw.pontos);
+    // var pontos = _recuperaPontos.pontos;
+    //
+    // print(pontos);
+    // print(ravenclaw.pontos);
 
     Future.delayed(Duration(seconds: 3), () {
       _recuperaPontos.carregando = true;
-      print(_recuperaPontos.carregando);
-      print(_recuperaPontos.pontos);
+      // print(_recuperaPontos.carregando);
+      // print(_recuperaPontos.pontos);
     });
 
     return Observer(
