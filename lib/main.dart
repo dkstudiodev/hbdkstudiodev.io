@@ -1,16 +1,14 @@
-import 'dart:js';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
+import 'package:torneiohp/Dependencias/ControleToast/MonitoraPontos.dart';
 import 'package:torneiohp/Dependencias/casas/Huffepuff.dart';
 import 'package:torneiohp/Dependencias/casas/Ravenclaw.dart';
 import 'package:torneiohp/Dependencias/RecuperaH.dart';
 import 'package:torneiohp/Dependencias/casas/Slytherin.dart';
-import 'package:torneiohp/Dependencias/WidgetCasa.dart';
-import 'Dependencias/ConstrutorCasas.dart';
+import 'package:torneiohp/widgets/toast.dart';
 import 'Dependencias/ControleLista.dart';
 import 'Dependencias/casas/Gryffindor.dart';
 import 'Dependencias/RecuperaG.dart';
@@ -47,17 +45,23 @@ Future<void> main() async {
       ),
       Provider<ControleLista>(
         create: (_) => ControleLista(),
+      ),
+      Provider<MonitoraPontos>(
+        create: (_) => MonitoraPontos(),
       )
     ],
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'HARRYP',
+    child: OKToast(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'HARRYP',
+        ),
+        home: PaginaRanking(),
       ),
-      home: PaginaRanking(),
     ),
   ));
 }
+
 
 class PaginaRanking extends StatelessWidget {
   const PaginaRanking({Key? key}) : super(key: key);
@@ -68,14 +72,9 @@ class PaginaRanking extends StatelessWidget {
     var altura = MediaQuery.of(context).size.height;
 
     final _controleLista = Provider.of<ControleLista>(context);
-    final _controleListaFunction = _controleLista.ListaCasas();
+    final _controleToast = Provider.of<MonitoraPontos>(context);
 
-    FirebaseFirestore db = FirebaseFirestore.instance;
-    db.collection("casa").snapshots().listen((snapshot) {
-      for (DocumentSnapshot item in snapshot.docs) {
-        dynamic dados = item.data();
-      }
-    });
+    _controleToast.MonitoraPontosDB();
 
     return Stack(
       children: [
