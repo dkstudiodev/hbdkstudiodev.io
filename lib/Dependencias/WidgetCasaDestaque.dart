@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'ControleLista.dart';
-import 'ListaCasaDestaque.dart';
+import 'ListaCadasDestaque.dart';
 
 class WidgetCasaDestaque extends StatefulWidget {
 

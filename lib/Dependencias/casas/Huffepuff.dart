@@ -24,29 +24,29 @@ class _HuffepuffState extends State<Huffepuff> {
       caminhoAnimacao: 'assets/huffepuff.riv',
       pontos: _recuperaPontos.recuperaPontos('hufflepuff'),
     );
-    var pontos = _recuperaPontos.pontos;
-
-    print(pontos);
-    print(huffepuff.pontos);
+    // var pontos = _recuperaPontos.pontos;
+    //
+    // print(pontos);
+    // print(huffepuff.pontos);
 
     Future.delayed(Duration(seconds: 3), () {
       _recuperaPontos.carregando = true;
-      print(_recuperaPontos.carregando);
-      print(_recuperaPontos.pontos);
+
     });
 
     return Observer(
       builder: (_) => Container(
         child: _recuperaPontos.carregando == false
             ? Container(
-          height: 600,
-          width: 600,
+          height: 300,
+          width: 300,
           child: RiveAnimation.asset(
             'assets/poison_loader.riv',
             fit: BoxFit.cover,
             animations: ['idle'],
           ),
         )
+
             : WidgetCasa(
             caminhoAnimacao: huffepuff.caminhoAnimacao,
             animacao: 'parado',

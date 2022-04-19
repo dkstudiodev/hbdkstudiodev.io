@@ -1,10 +1,7 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:mobx/mobx.dart';
 import 'package:torneiohp/Dependencias/ConstrutorCasas.dart';
-
 part 'RecuperaG.g.dart';
 
 class RecuperaG = _RecuperaGBase with _$RecuperaG;
@@ -16,8 +13,8 @@ abstract class _RecuperaGBase with Store {
   @observable
   bool carregando = false;
 
-  List<ConstrutorCasas> Listacasa2 = [];
-
+  @observable
+  bool mudou = false;
 
   @action
   recuperaPontos(String nomeCasa) async {

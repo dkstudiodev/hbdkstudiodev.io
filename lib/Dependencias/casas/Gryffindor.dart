@@ -27,6 +27,7 @@ class _GryffindorState extends State<Gryffindor> {
     );
 
 
+
     Future.delayed(Duration(seconds: 3), () {
       _recuperaPontos.carregando = true;
 

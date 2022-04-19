@@ -14,6 +14,7 @@ abstract class _ControleListaBase with Store {
   @observable
   dynamic primeiraCasa;
 
+
   @action
   Future<ConstrutorCasas> ListaCasas() async {
     FirebaseFirestore db = FirebaseFirestore.instance;

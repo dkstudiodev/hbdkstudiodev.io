@@ -26,29 +26,30 @@ class _RavenclawState extends State<Ravenclaw> {
       caminhoAnimacao: 'assets/ravenclaw.riv',
       pontos: _recuperaPontos.recuperaPontos('ravenclaw'),
     );
-    var pontos = _recuperaPontos.pontos;
-
-    print(pontos);
-    print(ravenclaw.pontos);
+    // var pontos = _recuperaPontos.pontos;
+    //
+    // print(pontos);
+    // print(ravenclaw.pontos);
 
     Future.delayed(Duration(seconds: 3), () {
       _recuperaPontos.carregando = true;
-      print(_recuperaPontos.carregando);
-      print(_recuperaPontos.pontos);
+      // print(_recuperaPontos.carregando);
+      // print(_recuperaPontos.pontos);
     });
 
     return Observer(
       builder: (_) => Container(
         child: _recuperaPontos.carregando == false
             ? Container(
-          height: 600,
-          width: 600,
+          height: 300,
+          width: 300,
           child: RiveAnimation.asset(
             'assets/poison_loader.riv',
             fit: BoxFit.cover,
             animations: ['idle'],
           ),
         )
+
             : WidgetCasa(
             caminhoAnimacao: ravenclaw.caminhoAnimacao,
             animacao: 'parado',
