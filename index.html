@@ -78,6 +78,7 @@ const app = initializeApp(firebaseConfig);
       scriptTag.type = 'application/javascript';
       document.body.append(scriptTag);
     }
+    
 
     if ('serviceWorker' in navigator) {
       // Service workers are supported. Use them.
@@ -112,6 +113,8 @@ const app = initializeApp(firebaseConfig);
               loadMainDartJs();
             }
           });
+        
+        
 
         // If service worker doesn't succeed in a reasonable amount of time,
         // fallback to plain <script> tag.
@@ -128,6 +131,7 @@ const app = initializeApp(firebaseConfig);
       // Service workers not supported. Just drop the <script> tag.
       loadMainDartJs();
     }
+    
   </script>
 </body>
 </html>
