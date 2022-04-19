@@ -15,12 +15,10 @@
     the `--base-href` argument provided to `flutter build`.
   -->
   <base href="$FLUTTER_BASE_HREF">
-  
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-  
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,6 +26,8 @@
   <meta name="apple-mobile-web-app-title" content="torneiohp">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
+  
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
@@ -98,6 +98,7 @@ const app = initializeApp(firebaseConfig);
                 }
               });
             }
+          
             if (!reg.active && (reg.installing || reg.waiting)) {
               // No active web worker and we have installed or are installing
               // one for the first time. Simply wait for it to activate.
