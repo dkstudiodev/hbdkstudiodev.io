@@ -78,6 +78,7 @@ class PaginaRanking extends StatelessWidget {
 
     return Stack(
       children: [
+        
         Container(
           height: altura,
           width: largura,
@@ -89,6 +90,7 @@ class PaginaRanking extends StatelessWidget {
           ),
           // height: altura,
           // width: largura,
+          
         ),
         LayoutBuilder(
           builder: ( context,constraints) {
